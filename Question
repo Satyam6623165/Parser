@@ -1,0 +1,19 @@
+BCSE III – Compiler Design Lab
+ 
+Project - 5
+ 
+Consider a simple C-like language with
+ 
+    Basic Data Types : integer (int), float (float) and string (string) (a string is a stream of characters)
+    User defined data types : Structure (struct) and union
+    Assignments to the variables are performed at the time of declaration
+    Loop Constructs: for, nested loops are supported
+    Relational operators supported in the loop construct are {>, <}
+    Declarations can be made inside a loop
+    A loop body can use arithmetic operations {+ and –} in the prefix form to add   float variables and constants and '+' operator to concatenate to strings.   Assignment operator `=’ is supported.
+    Only function is main(), there is no other function. The main() function may     contain arguments, and also a return statement.
+ 
+Part I – Construct a CFG for this language.
+Part II – Write a lexical analyser to scan the stream of characters from a program written in the above language and generate stream of tokens.
+Part III – Maintain a symbol table with appropriate data structures.
+Part IV – Write a top-down parser for this language (modules include FIRST, FOLLOW, parsing table construction and parsing).
