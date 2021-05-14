@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../include/Lexer/lexer.h"
+#include "../include/SymTab/symtab.h"
 
 int main(int argc, char *argv[]) {
 	// Todo: How to handle structs and unions? 
@@ -8,8 +9,10 @@ int main(int argc, char *argv[]) {
 	// Todo: First and Follow
 	// Todo(Optional): Json Parse Tree
 
-	vector<int> tokens;
+	vector<pair<int, string>> tokens;
 	bool error;
+
+	Symtab symtab;
 	
 	Lexer lexer("../samples/sample1");
 	auto p = lexer.tokenise();

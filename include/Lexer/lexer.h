@@ -20,12 +20,12 @@ class Lexer {
     bool isInteger(string);
     bool isFloat(string);
     bool isString(string);
-    void analyse(string &, vector<int> &, bool &);
+    void analyse(string &, vector<pair<int, string>> &, bool &);
 
 public:
     Lexer(string fileName);
     ~Lexer();
-    pair<vector<int>, bool> tokenise();
+    pair<vector<pair<int, string>>, bool> tokenise();
 };
 
 bool Lexer::isOperator(char ch) {
@@ -86,7 +86,7 @@ Lexer::~Lexer() {
     delete(stringFA);
 }
 
-pair<vector<int>, bool> Lexer::tokenise() {
+pair<vector<pair<int, string>>, bool> Lexer::tokenise() {
     cout << "Lexer Output : \n";
     cout << setw(35) << left << "Lexeme" << right << "Token" << "\n\n";
 
@@ -96,7 +96,7 @@ pair<vector<int>, bool> Lexer::tokenise() {
     buffer << sourceFile.rdbuf();
     string source = buffer.str();
 
-    vector<int> tokens;
+    vector<pair<int, string>> tokens;
     bool error = false;
     string lexeme = "";
     for(int i = 0; i < source.length(); i++) {
@@ -109,55 +109,54 @@ pair<vector<int>, bool> Lexer::tokenise() {
             analyse(lexeme, tokens, error);
             if(lookahead == '+') {
                 cout << setw(35) << left << "+" << right << "ADD\n";
-                tokens.push_back(strToEnum["ADD"]);
+                tokens.push_back({strToEnum["ADD"], "+"});
             }
             else if(lookahead == '-') {
                 cout << setw(35) << left << "-" << right << "SUB\n";
-                tokens.push_back(strToEnum["SUB"]);
+                tokens.push_back({strToEnum["SUB"], "-"});
             }
             else if(lookahead == '*') {
                 cout << setw(35) << left << "*" << right << "MUL\n";
-                tokens.push_back(strToEnum["MUL"]);
+                tokens.push_back({strToEnum["MUL"], "*"});
             }
             else if(lookahead == '/') {
                 cout << setw(35) << left << "/" << right << "DIV\n";
-                tokens.push_back(strToEnum["DIV"]);
+                tokens.push_back({strToEnum["DIV"], "/"});
             }
             else if(lookahead == '<') {
                 cout << setw(35) << left << "<" << right << "LT\n";
-                tokens.push_back(strToEnum["LT"]);
+                tokens.push_back({strToEnum["LT"], "<"});
             }
             else if(lookahead == '>') {
                 cout << setw(35) << left << ">"  << right << "GT\n";
-                tokens.push_back(strToEnum["GT"]);
+                tokens.push_back({strToEnum["GT"], ">"});
             }
             else if(lookahead == '=') {
                 cout << setw(35) << left << "=" << right << "EQUALS\n";
-                tokens.push_back(strToEnum["EQUALS"]);
+                tokens.push_back({strToEnum["EQUALS"], "="});
             }
         }
         else if(isSymbol(lookahead)) {
             analyse(lexeme, tokens, error);
             if(lookahead == '{') {
-                // Todo : new scope (symbol table)
                 cout << setw(35) << left << "{" << right << "BRACE_OPEN\n";
-                tokens.push_back(strToEnum["BRACE_OPEN"]);
+                tokens.push_back({strToEnum["BRACE_OPEN"], "{"});
             }
             else if(lookahead == '}') {
                 cout << setw(35) << left << "}" << right << "BRACE_CLOSE\n";
-                tokens.push_back(strToEnum["BRACE_CLOSE"]);
+                tokens.push_back({strToEnum["BRACE_CLOSE"], "}"});
             }
             else if(lookahead == '(') {
                 cout << setw(35) << left << "(" << right << "PARAN_OPEN\n";
-                tokens.push_back(strToEnum["PARAN_OPEN"]);
+                tokens.push_back({strToEnum["PARAN_OPEN"], "("});
             }
             else if(lookahead == ')') {
                 cout << setw(35) << left << ")" << right << "PARAN_CLOSE\n";
-                tokens.push_back(strToEnum["PARAN_CLOSE"]);
+                tokens.push_back({strToEnum["PARAN_CLOSE"], ")"});
             }
             else if(lookahead == ';') {
                 cout << setw(35) << left << ";" << right << "SEMICOLON\n";
-                tokens.push_back(strToEnum["SEMICOLON"]);
+                tokens.push_back({strToEnum["SEMICOLON"], ";"});
             }
         }
         else if(lookahead == '"') {
@@ -183,29 +182,29 @@ pair<vector<int>, bool> Lexer::tokenise() {
     return {tokens, error};
 }
 
-void Lexer::analyse(string &lexeme, vector<int> &tokens, bool &error) {
+void Lexer::analyse(string &lexeme, vector<pair<int, string>> &tokens, bool &error) {
     if(isKeyWord(lexeme)) {
+        string temp = lexeme;
         cout << setw(35) << left <<  lexeme;
         transform(lexeme.begin(), lexeme.end(), lexeme.begin(), ::toupper);
         cout << right << lexeme << "\n";
-        tokens.push_back(strToEnum[lexeme]);
+        tokens.push_back({strToEnum[lexeme], temp});
     }
     else if(isIdentifier(lexeme)) {
-        //Todo : symbol table handling
         cout << setw(35) << left << lexeme << right << "IDENTIFIER\n";
-        tokens.push_back(strToEnum["IDENTIFIER"]);
+        tokens.push_back({strToEnum["IDENTIFIER"], lexeme});
     }
     else if(isString(lexeme)) {
         cout << setw(35) << left << lexeme << right << "LITERAL\n";
-        tokens.push_back(strToEnum["LITERAL"]);
+        tokens.push_back({strToEnum["LITERAL"], lexeme});
     }
     else if(isInteger(lexeme)) {
         cout << setw(35) << left << lexeme << right << "INTEGER_CONST\n";
-        tokens.push_back(strToEnum["INTEGER_CONST"]);
+        tokens.push_back({strToEnum["INTEGER_CONST"], lexeme});
     }
     else if(isFloat(lexeme)) {
         cout << setw(35) << left << lexeme << right << "FLOAT_CONST\n";
-        tokens.push_back(strToEnum["FLOAT_CONST"]);
+        tokens.push_back({strToEnum["FLOAT_CONST"], lexeme});
     }
     else if(lexeme.size() > 0) {
         cout << setw(35) << left << lexeme << right << "Error: Unidentified Token\n";
