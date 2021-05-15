@@ -1,4 +1,4 @@
-void main() {
+int main(int first, float second, string third) {
     int var = 0;
     string str = "Hello";
 }

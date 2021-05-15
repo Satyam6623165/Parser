@@ -34,7 +34,7 @@ bool Lexer::isOperator(char ch) {
 }
 
 bool Lexer::isSymbol(char ch) {
-    if(ch == '{' || ch == '}' || ch == '(' || ch == ')' || ch == ';') return true;
+    if(ch == '{' || ch == '}' || ch == '(' || ch == ')' || ch == ';' || ch == ',') return true;
     return false;
 }
 
@@ -157,6 +157,10 @@ pair<vector<pair<int, string>>, bool> Lexer::tokenise() {
             else if(lookahead == ';') {
                 cout << setw(35) << left << ";" << right << "SEMICOLON\n";
                 tokens.push_back({strToEnum["SEMICOLON"], ";"});
+            }
+            else if(lookahead == ',') {
+                cout << setw(35) << left << "," << right << "COMMA\n";
+                tokens.push_back({strToEnum["COMMA"], ","});
             }
         }
         else if(lookahead == '"') {

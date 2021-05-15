@@ -31,7 +31,8 @@ enum Token {
     LITERAL,
     INTEGER_CONST,
     FLOAT_CONST,
-    PERIOD
+    PERIOD,
+    COMMA
 };
 
 unordered_map<string, Token> strToEnum = {
@@ -60,7 +61,8 @@ unordered_map<string, Token> strToEnum = {
     {"LITERAL", Token::LITERAL},
     {"INTEGER_CONST", Token::INTEGER_CONST},
     {"FLOAT_CONST", Token::FLOAT_CONST},
-    {"PERIOD", Token::PERIOD}
+    {"PERIOD", Token::PERIOD},
+    {"COMMA", Token::COMMA}
 };
 
 #endif

@@ -1,0 +1,51 @@
+program
+program type_specifier block statement return_statement return_statement_r arith_expr conditionals assignment assignment_r term constant declaration declaration_1 loop_construct parameter_list parameter_list_1
+
+program = type_specifier MAIN PARAN_OPEN parameter_list PARAN_CLOSE block
+
+type_specifier = INT
+type_specifier = FLOAT
+type_specifier = STRING
+
+block = BRACE_OPEN statement BRACE_CLOSE
+
+statement = loop_construct block
+statement = declaration SEMICOLON statement
+statement = arith_expr SEMICOLON statement
+statement = assignment SEMICOLON statement
+statement = return_statement
+statement = EPSILON
+
+return_statement = RETURN return_statement_r
+return_statement_r = term
+return_statement_r = arith_expr
+
+arith_expr = ADD term term
+arith_expr = SUB term term
+arith_expr = MUL term term
+arith_expr = DIV term term
+
+conditionals = term LT term
+conditionals = term GT term
+
+assignment = IDENTIFIER EQUALS assignment_r
+assignment_r = arith_expr
+assignment_r = assignment
+assignment_r = constant
+
+term = IDENTIFIER
+term = constant
+
+constant = LITERAL
+constant = INTEGER_CONST
+constant = FLOAT_CONST
+
+declaration = type_specifier IDENTIFIER declaration_1
+declaration_1 = EQUALS assignment_r
+declaration_1 = EPSILON
+
+loop_construct = FOR PARAN_OPEN declaration SEMICOLON conditionals SEMICOLON arith_expr PARAN_CLOSE 
+
+parameter_list = declaration parameter_list_1
+parameter_list_1 = COMMA parameter_list
+parameter_list_1 = EPSILON

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../include/Lexer/lexer.h"
 #include "../include/SymTab/symtab.h"
+#include "../include/LR_parser/grammar.h"
 
 int main(int argc, char *argv[]) {
 	// Todo: How to handle structs and unions? 
@@ -20,6 +21,7 @@ int main(int argc, char *argv[]) {
 
 	if(!error) {
 		//Todo: Proceed with Parsing
+		
 	}
 
 	return 0;
