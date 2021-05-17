@@ -42,7 +42,7 @@ ParsingTable::ParsingTable(Grammar cfg) {
                     }
                     else table[{rule.source, var}] = index;
                 }
-                if(epsPresent) {
+                if(!epsPresent) {
                     endReached = false;
                     break;
                 }
