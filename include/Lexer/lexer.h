@@ -88,7 +88,9 @@ Lexer::~Lexer() {
 
 pair<vector<pair<int, string>>, bool> Lexer::tokenise() {
     cout << "Lexer Output : \n";
-    cout << setw(35) << left << "Lexeme" << right << "Token" << "\n\n";
+    cout << "---------------------------------------------------------\n";
+    cout << setw(35) << left << "Lexeme" << right << "Token" << "\n";
+    cout << "---------------------------------------------------------\n\n";
 
     ifstream sourceFile(sourcePath);
 

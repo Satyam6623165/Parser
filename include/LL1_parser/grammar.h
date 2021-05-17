@@ -31,13 +31,28 @@ public:
         for(auto x : production) cout << x << " ";
         cout << "]\n";
     }
+
+    bool find(string var);
 };
+
+bool Rule::find(string var) {
+    bool found = false;
+    for(auto x : production) {
+        if(x == var) {
+            found = true;
+            break;
+        }
+    }
+
+    return found;
+}
 
 class Grammar {
 public:
     string start;
     vector<Rule> grammar;
-    vector<string> nonTerminals;
+    unordered_set<string> nonTerminals;
+    unordered_map<string, vector<vector<string>>> allProductions;
 
     Grammar() {}
 
@@ -47,12 +62,14 @@ public:
 
         getline(file, start);
         getline(file, line);
-        nonTerminals = stringTokens(line);
+        auto List = stringTokens(line);
+        nonTerminals = unordered_set<string>(List.begin(), List.end());
 
         while(getline(file, line)) {
             if(line.size() > 0) {
                 vector<string> temp = stringTokens(line);
                 grammar.push_back(Rule(temp[0], vector<string>(temp.begin()+2, temp.end())));
+                allProductions[temp[0]].push_back(vector<string>(temp.begin()+2, temp.end()));
             }
         }
     }

@@ -1,5 +1,5 @@
 program
-program type_specifier block statement return_statement return_statement_r arith_expr conditionals assignment assignment_r term constant declaration declaration_1 loop_construct parameter_list parameter_list_1
+program type_specifier block statement return_statement return_statement_r arith_expr conditionals conditionals_1 assignment assignment_r term constant declaration declaration_1 loop_construct parameter_list parameter_list_1
 
 program = type_specifier MAIN PARAN_OPEN parameter_list PARAN_CLOSE block
 
@@ -25,8 +25,9 @@ arith_expr = SUB term term
 arith_expr = MUL term term
 arith_expr = DIV term term
 
-conditionals = term LT term
-conditionals = term GT term
+conditionals = term conditionals_1
+conditionals_1 = GT term
+conditionals_1 = LT term
 
 assignment = IDENTIFIER EQUALS assignment_r
 assignment_r = arith_expr

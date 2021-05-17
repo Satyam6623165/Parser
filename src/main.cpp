@@ -1,28 +1,11 @@
 #include <iostream>
-#include "../include/Lexer/lexer.h"
-#include "../include/SymTab/symtab.h"
-#include "../include/LR_parser/grammar.h"
+#include "../include/LL1_parser/LL1.h"
 
 int main(int argc, char *argv[]) {
 	// Todo: How to handle structs and unions? 
-	// Todo: Write the grammar file and grammar parsing
-	// Todo: Symbol table
-	// Todo: First and Follow
-	// Todo(Optional): Json Parse Tree
 
-	vector<pair<int, string>> tokens;
-	bool error;
-
-	Symtab symtab;
-	
-	Lexer lexer("../samples/sample1");
-	auto p = lexer.tokenise();
-	tokens = p.first, error = p.second;
-
-	if(!error) {
-		//Todo: Proceed with Parsing
-		
-	}
+	Parser P("../samples/sample1", "../include/LL1_parser/grammar");
+	P.parse();
 
 	return 0;
 }

@@ -32,7 +32,8 @@ enum Token {
     INTEGER_CONST,
     FLOAT_CONST,
     PERIOD,
-    COMMA
+    COMMA,
+    END
 };
 
 unordered_map<string, Token> strToEnum = {
@@ -62,7 +63,39 @@ unordered_map<string, Token> strToEnum = {
     {"INTEGER_CONST", Token::INTEGER_CONST},
     {"FLOAT_CONST", Token::FLOAT_CONST},
     {"PERIOD", Token::PERIOD},
-    {"COMMA", Token::COMMA}
+    {"COMMA", Token::COMMA},
+    {"$", Token::END}
+};
+
+unordered_map<Token, string> enumToStr = {
+    {Token::VOID, "VOID"},
+    {Token::MAIN, "MAIN"},
+    {Token::INT, "INT"},
+    {Token::FLOAT, "FLOAT"},
+    {Token::STRING, "STRING"},
+    {Token::STRUCT, "STRUCT"},
+    {Token::UNION, "UNION"},
+    {Token::FOR, "FOR"},
+    {Token::RETURN, "RETURN"},
+    {Token::ADD, "ADD"},
+    {Token::SUB, "SUB"},
+    {Token::MUL, "MUL"},
+    {Token::DIV, "DIV"},
+    {Token::LT, "LT"},
+    {Token::GT, "GT"},
+    {Token::EQUALS, "EQUALS"},
+    {Token::BRACE_OPEN, "BRACE_OPEN"},
+    {Token::BRACE_CLOSE, "BRACE_CLOSE"},
+    {Token::PARAN_OPEN, "PARAN_OPEN"},
+    {Token::PARAN_CLOSE, "PARAN_CLOSE"},
+    {Token::SEMICOLON, "SEMICOLON"},
+    {Token::IDENTIFIER, "IDENTIFIER"},
+    {Token::LITERAL, "LITERAL"},
+    {Token::INTEGER_CONST, "INTEGER_CONST"},
+    {Token::FLOAT_CONST, "FLOAT_CONST"},
+    {Token::PERIOD, "PERIOD"},
+    {Token::COMMA, "COMMA"},
+    {Token::END, "$"}
 };
 
 #endif
