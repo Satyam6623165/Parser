@@ -92,7 +92,7 @@ void Parser::parse() {
         }
 
         if(error) cout << "\nSntax Error found. Aborting ...\n";
-        else cout << "\nParsing Complete ! Input Code Accepted (Stack opeartions can be found in p,out file ) ...\n";
+        else cout << "\nParsing Complete ! Input Code Accepted (Stack opeartions can be found in p.out file ) ...\n";
     }
 }
 

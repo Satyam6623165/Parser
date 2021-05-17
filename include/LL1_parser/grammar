@@ -13,7 +13,7 @@ statement = loop_construct block
 statement = declaration SEMICOLON statement
 statement = arith_expr SEMICOLON statement
 statement = assignment SEMICOLON statement
-statement = return_statement
+statement = return_statement SEMICOLON
 statement = EPSILON
 
 return_statement = RETURN return_statement_r
