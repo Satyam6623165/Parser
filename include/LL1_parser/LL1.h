@@ -6,6 +6,8 @@
 #include "grammar.h"
 #include "../Lexer/lexer.h"
 #include "../Token/token.h"
+#include "../ParseTree/parseTree.h"
+
 using namespace std;
 
 void printStackState(stack<string> left, stack<int> right, ofstream &file) {
@@ -27,6 +29,7 @@ class Parser {
     ParsingTable pTab;
     Grammar cfg;
     stack<int> tokStack;
+    Ptree ptree;
 public:
     Parser() {};
     Parser(string, string);
@@ -45,6 +48,7 @@ Parser::Parser(string codeFile, string grammarFile) {
         for(int i = tokens.size()-1; i >= 0; i--) tokStack.push(tokens[i].first);
         cfg = Grammar(grammarFile);
         pTab = ParsingTable(cfg);
+        ptree = Ptree(cfg.start);
     }
 }
 
@@ -83,6 +87,7 @@ void Parser::parse() {
                         pStack.pop();
                         vector<string> temp = cfg.grammar[index].production;
                         for(int i = temp.size()-1; i >= 0; i--) if(temp[i] != "EPSILON") pStack.push(temp[i]);
+                        ptree.insert(cfg.grammar[index].source, temp, cfg.nonTerminals);
                     }
                 }
             }
@@ -92,7 +97,11 @@ void Parser::parse() {
         }
 
         if(error) cout << "\nSntax Error found. Aborting ...\n";
-        else cout << "\nParsing Complete ! Input Code Accepted (Stack opeartions can be found in p.out file ) ...\n";
+        else {
+            ptree.writeJson();
+            cout << "\nParsing Complete ! Input Code Accepted (Stack opeartions can be found in p.out file ) ...\n";
+            cout << "Parsetree can be found at /include/ParseTree/ptree.json ...\n";
+        }
     }
 }
 

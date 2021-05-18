@@ -1,0 +1,243 @@
+{
+    "program": {
+        "type_specifier": {
+            "INT": ""
+        },
+        "MAIN": "",
+        "PARAN_OPEN": "",
+        "parameter_list": {
+            "declaration": {
+                "type_specifier": {
+                    "INT": ""
+                },
+                "IDENTIFIER": "",
+                "declaration_1": {
+                    "": ""
+                }
+            },
+            "parameter_list_1": {
+                "COMMA": "",
+                "parameter_list": {
+                    "declaration": {
+                        "type_specifier": {
+                            "FLOAT": ""
+                        },
+                        "IDENTIFIER": "",
+                        "declaration_1": {
+                            "": ""
+                        }
+                    },
+                    "parameter_list_1": {
+                        "COMMA": "",
+                        "parameter_list": {
+                            "declaration": {
+                                "type_specifier": {
+                                    "STRING": ""
+                                },
+                                "IDENTIFIER": "",
+                                "declaration_1": {
+                                    "": ""
+                                }
+                            },
+                            "parameter_list_1": {
+                                "": ""
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "PARAN_CLOSE": "",
+        "block": {
+            "BRACE_OPEN": "",
+            "statement": {
+                "declaration": {
+                    "type_specifier": {
+                        "INT": ""
+                    },
+                    "IDENTIFIER": "",
+                    "declaration_1": {
+                        "EQUALS": "",
+                        "assignment_r": {
+                            "constant": {
+                                "INTEGER_CONST": ""
+                            }
+                        }
+                    }
+                },
+                "SEMICOLON": "",
+                "statement": {
+                    "declaration": {
+                        "type_specifier": {
+                            "STRING": ""
+                        },
+                        "IDENTIFIER": "",
+                        "declaration_1": {
+                            "EQUALS": "",
+                            "assignment_r": {
+                                "constant": {
+                                    "LITERAL": ""
+                                }
+                            }
+                        }
+                    },
+                    "SEMICOLON": "",
+                    "statement": {
+                        "loop_construct": {
+                            "FOR": "",
+                            "PARAN_OPEN": "",
+                            "declaration": {
+                                "type_specifier": {
+                                    "INT": ""
+                                },
+                                "IDENTIFIER": "",
+                                "declaration_1": {
+                                    "EQUALS": "",
+                                    "assignment_r": {
+                                        "constant": {
+                                            "INTEGER_CONST": ""
+                                        }
+                                    }
+                                }
+                            },
+                            "SEMICOLON": "",
+                            "conditionals": {
+                                "term": {
+                                    "IDENTIFIER": ""
+                                },
+                                "conditionals_1": {
+                                    "LT": "",
+                                    "term": {
+                                        "constant": {
+                                            "INTEGER_CONST": ""
+                                        }
+                                    }
+                                }
+                            },
+                            "SEMICOLON": "",
+                            "assignment": {
+                                "IDENTIFIER": "",
+                                "EQUALS": "",
+                                "assignment_r": {
+                                    "arith_expr": {
+                                        "ADD": "",
+                                        "term": {
+                                            "IDENTIFIER": ""
+                                        },
+                                        "term": {
+                                            "constant": {
+                                                "INTEGER_CONST": ""
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "PARAN_CLOSE": ""
+                        },
+                        "block": {
+                            "BRACE_OPEN": "",
+                            "statement": {
+                                "loop_construct": {
+                                    "FOR": "",
+                                    "PARAN_OPEN": "",
+                                    "declaration": {
+                                        "type_specifier": {
+                                            "INT": ""
+                                        },
+                                        "IDENTIFIER": "",
+                                        "declaration_1": {
+                                            "EQUALS": "",
+                                            "assignment_r": {
+                                                "constant": {
+                                                    "INTEGER_CONST": ""
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "SEMICOLON": "",
+                                    "conditionals": {
+                                        "term": {
+                                            "IDENTIFIER": ""
+                                        },
+                                        "conditionals_1": {
+                                            "LT": "",
+                                            "term": {
+                                                "constant": {
+                                                    "INTEGER_CONST": ""
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "SEMICOLON": "",
+                                    "assignment": {
+                                        "IDENTIFIER": "",
+                                        "EQUALS": "",
+                                        "assignment_r": {
+                                            "arith_expr": {
+                                                "ADD": "",
+                                                "term": {
+                                                    "IDENTIFIER": ""
+                                                },
+                                                "term": {
+                                                    "constant": {
+                                                        "INTEGER_CONST": ""
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "PARAN_CLOSE": ""
+                                },
+                                "block": {
+                                    "BRACE_OPEN": "",
+                                    "statement": {
+                                        "assignment": {
+                                            "IDENTIFIER": "",
+                                            "EQUALS": "",
+                                            "assignment_r": {
+                                                "arith_expr": {
+                                                    "DIV": "",
+                                                    "term": {
+                                                        "IDENTIFIER": ""
+                                                    },
+                                                    "term": {
+                                                        "constant": {
+                                                            "INTEGER_CONST": ""
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "SEMICOLON": "",
+                                        "statement": {
+                                            "": ""
+                                        }
+                                    },
+                                    "BRACE_CLOSE": ""
+                                },
+                                "statement": {
+                                    "": ""
+                                }
+                            },
+                            "BRACE_CLOSE": ""
+                        },
+                        "statement": {
+                            "return_statement": {
+                                "RETURN": "",
+                                "return_statement_r": {
+                                    "term": {
+                                        "constant": {
+                                            "INTEGER_CONST": ""
+                                        }
+                                    }
+                                }
+                            },
+                            "SEMICOLON": ""
+                        }
+                    }
+                }
+            },
+            "BRACE_CLOSE": ""
+        }
+    }
+}
