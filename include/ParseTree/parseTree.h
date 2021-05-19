@@ -19,20 +19,12 @@ public:
     }
     void insert(string src, vector<string> &tokens, unordered_set<string> &);
     void sync(string tok) {
-        while(tokenString[index] != tok) {
-            //cout << "Syncing ... Now : " << tokenString[index] << "\n";
-            index++;
-        }
+        while(tokenString[index] != tok) index++;
         index++;
     }
     void writeJson();
     void jsonStringify(string &);
 };
-
-// void print(vector<string> &temp) {
-//     for(auto x : temp) cout << x << " ";
-//     cout << "\n";
-// }
 
 void Ptree::insert(string src, vector<string> &tokens, unordered_set<string> &nonTerminals) {
     sync(src);

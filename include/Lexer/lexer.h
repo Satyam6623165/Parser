@@ -3,6 +3,7 @@
 
 #include "../FSM/FSM.h"
 #include "../Token/token.h"
+#include "../SymTab/symtab.h"
 
 class Lexer {
     string sourcePath;
@@ -11,6 +12,8 @@ class Lexer {
     FSM *stringFA;
     FSM *integerFA;
     unordered_set<string> keyWords;
+    Symtab symtab;
+    int scope;
 
     bool isOperator(char);
     bool isSymbol(char);
@@ -20,7 +23,7 @@ class Lexer {
     bool isInteger(string);
     bool isFloat(string);
     bool isString(string);
-    void analyse(string &, vector<pair<int, string>> &, bool &);
+    void analyse(string &, vector<pair<int, string>> &, bool &, string &);
 
 public:
     Lexer(string fileName);
@@ -76,7 +79,9 @@ Lexer::Lexer(string path) {
     floatFA = new FSM("../include/FSM/FSM_files/float.txt");
     stringFA = new FSM("../include/FSM/FSM_files/string.txt");
 
-    keyWords = {"void", "main", "int", "float", "string", "struct", "union", "for", "return"};
+    keyWords = {"void", "main", "int", "float", "string", "for", "return"};
+    symtab = Symtab();
+    scope = -1;
 }
 
 Lexer::~Lexer() {
@@ -100,15 +105,15 @@ pair<vector<pair<int, string>>, bool> Lexer::tokenise() {
 
     vector<pair<int, string>> tokens;
     bool error = false;
-    string lexeme = "";
+    string lexeme = "", prev = "";
     for(int i = 0; i < source.length(); i++) {
         char lookahead = source[i];
 
         if(isWhiteSpace(lookahead)) {
-            analyse(lexeme, tokens, error);
+            analyse(lexeme, tokens, error, prev);
         }
         else if(isOperator(lookahead)) {
-            analyse(lexeme, tokens, error);
+            analyse(lexeme, tokens, error, prev);
             if(lookahead == '+') {
                 cout << setw(35) << left << "+" << right << "ADD\n";
                 tokens.push_back({strToEnum["ADD"], "+"});
@@ -139,12 +144,14 @@ pair<vector<pair<int, string>>, bool> Lexer::tokenise() {
             }
         }
         else if(isSymbol(lookahead)) {
-            analyse(lexeme, tokens, error);
+            analyse(lexeme, tokens, error, prev);
             if(lookahead == '{') {
                 cout << setw(35) << left << "{" << right << "BRACE_OPEN\n";
                 tokens.push_back({strToEnum["BRACE_OPEN"], "{"});
             }
             else if(lookahead == '}') {
+                scope--;
+                symtab.removeScope();
                 cout << setw(35) << left << "}" << right << "BRACE_CLOSE\n";
                 tokens.push_back({strToEnum["BRACE_CLOSE"], "}"});
             }
@@ -182,23 +189,67 @@ pair<vector<pair<int, string>>, bool> Lexer::tokenise() {
     }
 
     if(lexeme.size() > 0) {
-        analyse(lexeme, tokens, error);
+        analyse(lexeme, tokens, error, prev);
     }
 
     return {tokens, error};
 }
 
-void Lexer::analyse(string &lexeme, vector<pair<int, string>> &tokens, bool &error) {
+void Lexer::analyse(string &lexeme, vector<pair<int, string>> &tokens, bool &error, string &prev) {
+    string temp = lexeme;
     if(isKeyWord(lexeme)) {
-        string temp = lexeme;
-        cout << setw(35) << left <<  lexeme;
-        transform(lexeme.begin(), lexeme.end(), lexeme.begin(), ::toupper);
-        cout << right << lexeme << "\n";
-        tokens.push_back({strToEnum[lexeme], temp});
+        if(temp == "main") {
+            if(scope == -1) {
+                if(prev == "void" || prev == "int" || prev == "float" || prev == "string") {
+                    scope++;
+                    symtab.addNewScope();
+                    symtab.addEntry(temp, prev);
+                }
+                else {
+                    cout << setw(35) << left << temp << right << "Error: Invalid Type of identifier\n";
+                    error = true; 
+                }
+            }
+            else {
+                cout << setw(35) << left << temp << right << "Error: Keywords cannot be used as identifier\n";
+                error = true;
+            }
+        }
+        else if(temp == "for") {
+            scope++;
+            symtab.addNewScope();
+        }
+        else if(prev == "void" || prev == "int" || prev == "float" || prev == "string") {
+            cout << setw(35) << left << temp << right << "Error: Keywords cannot be used as identifier\n";
+            error = true;
+        }
+        if(!error) {
+            cout << setw(35) << left <<  lexeme;
+            transform(lexeme.begin(), lexeme.end(), lexeme.begin(), ::toupper);
+            cout << right << lexeme << "\n";
+            tokens.push_back({strToEnum[lexeme], temp});
+        }
     }
     else if(isIdentifier(lexeme)) {
-        cout << setw(35) << left << lexeme << right << "IDENTIFIER\n";
-        tokens.push_back({strToEnum["IDENTIFIER"], lexeme});
+        if(prev == "int" || prev == "float" || prev == "string") {
+            if(symtab.exactPresent(lexeme) == true) {
+                cout << setw(35) << left << lexeme << right << "Error: Redeclaration of identifier\n";
+                error = true;
+            }
+            else {
+                symtab.addEntry(lexeme, prev);
+            }
+        }
+        else {
+            if(symtab.isPresent(lexeme) == false) {
+                cout << setw(35) << left << lexeme << right << "Error: Undefined token\n";
+                error = true;
+            }
+        }
+        if(!error) {
+            cout << setw(35) << left << lexeme << right << "IDENTIFIER\n";
+            tokens.push_back({strToEnum["IDENTIFIER"], lexeme});
+        }
     }
     else if(isString(lexeme)) {
         cout << setw(35) << left << lexeme << right << "LITERAL\n";
@@ -216,7 +267,7 @@ void Lexer::analyse(string &lexeme, vector<pair<int, string>> &tokens, bool &err
         cout << setw(35) << left << lexeme << right << "Error: Unidentified Token\n";
         error = true;
     }
-
+    prev = temp;
     lexeme = "";
 }
 

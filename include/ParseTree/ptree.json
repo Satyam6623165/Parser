@@ -53,14 +53,14 @@
             "statement": {
                 "declaration": {
                     "type_specifier": {
-                        "INT": ""
+                        "STRING": ""
                     },
                     "IDENTIFIER": "",
                     "declaration_1": {
                         "EQUALS": "",
                         "assignment_r": {
                             "constant": {
-                                "INTEGER_CONST": ""
+                                "LITERAL": ""
                             }
                         }
                     }
@@ -69,14 +69,14 @@
                 "statement": {
                     "declaration": {
                         "type_specifier": {
-                            "STRING": ""
+                            "INT": ""
                         },
                         "IDENTIFIER": "",
                         "declaration_1": {
                             "EQUALS": "",
                             "assignment_r": {
                                 "constant": {
-                                    "LITERAL": ""
+                                    "INTEGER_CONST": ""
                                 }
                             }
                         }
@@ -222,17 +222,34 @@
                             "BRACE_CLOSE": ""
                         },
                         "statement": {
-                            "return_statement": {
-                                "RETURN": "",
-                                "return_statement_r": {
-                                    "term": {
+                            "declaration": {
+                                "type_specifier": {
+                                    "FLOAT": ""
+                                },
+                                "IDENTIFIER": "",
+                                "declaration_1": {
+                                    "EQUALS": "",
+                                    "assignment_r": {
                                         "constant": {
-                                            "INTEGER_CONST": ""
+                                            "FLOAT_CONST": ""
                                         }
                                     }
                                 }
                             },
-                            "SEMICOLON": ""
+                            "SEMICOLON": "",
+                            "statement": {
+                                "return_statement": {
+                                    "RETURN": "",
+                                    "return_statement_r": {
+                                        "term": {
+                                            "constant": {
+                                                "INTEGER_CONST": ""
+                                            }
+                                        }
+                                    }
+                                },
+                                "SEMICOLON": ""
+                            }
                         }
                     }
                 }
